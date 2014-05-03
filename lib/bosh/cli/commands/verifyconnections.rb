@@ -1,8 +1,11 @@
+require "core-ext/hash_to_dotted_notation"
+
 module Bosh::Cli::Command
   # Performs job interconnection verifications upon the target deployment
   # 1. Show jobs with static IPs that aren't referenced elsewhere in the deployment properties
   # 2. Show IPs in the deployment properties that aren't specified as static IPs by jobs
   # 3. What .*bosh hostnames are specified but don't map to a job
+  # 4. Hostnames that don't resolve to any IP
   class VerifyConnections < Base
     include Bosh::Cli::Validation
     include BoshExtensions
@@ -13,10 +16,9 @@ module Bosh::Cli::Command
       require "bosh/verifyconnections"
 
       show_deployment
-      deployment_model = Bosh::VerifyConnections::Deployment.new(deployment)
       director_model = Bosh::VerifyConnections::Director.new(director.get_status)
+      deployment_model = Bosh::VerifyConnections::Deployment.new(deployment, director_model.domain_name)
 
-      require "pp"
       errors = false
 
       items = deployment_model.unreferenced_static_ips_with_job_index
@@ -39,7 +41,7 @@ module Bosh::Cli::Command
         nl
         say "Internal static IPs not assigned to any job:".make_yellow
         view = table(items) do |t|
-          t.headings = ["static ip", "property", "job name"]
+          t.headings = ["property", "static ip", "job name"]
           items.each do |item|
             t << item
           end
@@ -53,9 +55,10 @@ module Bosh::Cli::Command
         nl
         say "Internal hostnames not mapping to any job:".make_yellow
         view = table(items) do |t|
-          t.headings = ["hostname", "property", "job name"]
+          t.headings = ["property", "hostname", "job name"]
           items.each do |item|
             t << item
+            t.add_separator unless item == items.last
           end
         end
         say(view)

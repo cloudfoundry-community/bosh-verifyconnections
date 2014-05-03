@@ -1,0 +1,78 @@
+---
+name: job_with_static_ips_but_not_referenced
+releases:
+  - name: cf
+    version: latest
+
+networks:
+- name: cf1
+  subnets:
+  # static
+  - cloud_properties:
+      name: random
+    range: 10.244.0.0/30
+    reserved:
+    - 10.244.0.1
+    static:
+    - 10.244.0.2
+  - cloud_properties:
+      name: random
+    range: 10.244.0.4/30
+    reserved:
+    - 10.244.0.5
+    static:
+    - 10.244.0.6
+  - cloud_properties:
+      name: random
+    range: 10.244.0.8/30
+    reserved:
+    - 10.244.0.9
+    static:
+    - 10.244.0.10
+
+  # dynamic
+  - cloud_properties:
+      name: random
+    range: 10.244.0.128/30
+    reserved:
+    - 10.244.0.129
+    static: []
+  - cloud_properties:
+      name: random
+    range: 10.244.0.132/30
+    reserved:
+    - 10.244.0.133
+    static: []
+  - cloud_properties:
+      name: random
+    range: 10.244.0.136/30
+    reserved:
+    - 10.244.0.137
+
+jobs:
+- name: ephemeral
+  instances: 2
+  templates:
+    - name: cloud_controller_ng
+  networks:
+  - name: cf1
+- name: service
+  instances: 1
+  templates:
+    - name: postgres
+  networks:
+  - name: cf1
+    default: [dns, gateway]
+  - name: floating
+    static_ips:
+    - 10.244.0.6
+  properties:
+    service:
+      port: 4444
+      host: 0.service.floating.job-with-static-ips-but-not-referenced.microbosh
+    extra: property
+
+properties:
+  service:
+    host: 0.some-service.cf1.job-with-static-ips-but-not-referenced.microbosh
+    port: 3333
