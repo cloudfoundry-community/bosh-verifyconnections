@@ -68,7 +68,7 @@ jobs:
     - 10.244.0.6
   properties:
     service:
-      port: 3333
+      port: 4444
     extra: property
 
 properties:

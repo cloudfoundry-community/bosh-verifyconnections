@@ -22,11 +22,11 @@ describe Bosh::VerifyConnections::Deployment do
     it { expect(subject.all_properties).to eq({
       "service" => {
         "host" => "10.244.0.6",
-        "port" => 3333
+        "port" => 4444
       },
-      "extra" => "property"
+      "extra" => "property",
     })}
 
-    
+
   end
 end
