@@ -1,6 +1,10 @@
 class Bosh::VerifyConnections::DeploymentJob
+  def initialize(job_from_manifest)
+    @from_manifest = job_from_manifest
+  end
+
   def instances
-    0
+    @from_manifest["instances"]
   end
 
   def static_ips_assigned
