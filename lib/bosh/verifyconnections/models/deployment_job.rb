@@ -26,7 +26,7 @@ class Bosh::VerifyConnections::DeploymentJob
     end
   end
 
-  def dns_offered(deployment_name, dns_suffix)
+  def hostnames_offered(deployment_name, dns_suffix)
     deployment_name = dns_canonical(deployment_name)
     dns_suffix = dns_canonical(dns_suffix)
     job_name = dns_canonical(self.job_name)

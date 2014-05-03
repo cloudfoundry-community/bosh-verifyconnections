@@ -24,7 +24,7 @@ describe Bosh::VerifyConnections::DeploymentJob do
     end
     it { expect(subject.instances).to eq(1) }
     it { expect(subject.static_ips_assigned).to eq(["10.244.0.6"])}
-    it { expect(subject.dns_offered("my_deployment", "suffix")).to eq([
+    it { expect(subject.hostnames_offered("my_deployment", "suffix")).to eq([
       "0.service-name.internal-network.my-deployment.suffix",
       "0.service-name.floating.my-deployment.suffix"
     ])}
