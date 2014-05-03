@@ -1,3 +1,6 @@
+require "common/deep_copy"
+require "core-ext/hash_deep_merge"
+
 module Bosh::VerifyConnections
   class Deployment
     include BoshExtensions
@@ -24,6 +27,18 @@ module Bosh::VerifyConnections
         ips.push(*job.static_ips_assigned)
         ips
       end
+    end
+
+    def global_properties
+      @deployment["properties"]
+    end
+
+    def all_properties
+      properties = Bosh::Common::DeepCopy.copy(global_properties)
+      jobs.each do |job|
+        properties.deep_merge!(job.job_properties)
+      end
+      properties
     end
 
     private

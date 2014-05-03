@@ -12,5 +12,21 @@ describe Bosh::VerifyConnections::Deployment do
     ])}
 
     it { expect(subject.static_ips_assigned).to eq(["10.244.0.6"])}
+    it { expect(subject.global_properties).to eq({
+      "service" => {
+        "host" => "10.244.0.6",
+        "port" => 3333
+      }
+    })}
+
+    it { expect(subject.all_properties).to eq({
+      "service" => {
+        "host" => "10.244.0.6",
+        "port" => 3333
+      },
+      "extra" => "property"
+    })}
+
+    
   end
 end

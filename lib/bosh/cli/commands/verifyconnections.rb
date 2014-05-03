@@ -14,12 +14,12 @@ module Bosh::Cli::Command
       require "bosh/verifyconnections"
 
       show_deployment
-      require "pp"
-      pp jobs_and_indexes
-      pp deployment
-
       deployment_model = Bosh::VerifyConnections::Deployment.new(deployment)
-      pp deployment_model
+
+      require "pp"
+
+      pp deployment_model.hostnames_offered("suffix")
+      pp deployment_model.static_ips_assigned
     end
   end
 end

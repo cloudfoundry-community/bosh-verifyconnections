@@ -18,7 +18,10 @@ describe Bosh::VerifyConnections::DeploymentJob do
           }
         ],
         "properties" => {
-          "port" => 3333
+          "port" => 3333,
+          "nested" => {
+            "key" => "value"
+          }
         }
       })
     end
@@ -28,6 +31,7 @@ describe Bosh::VerifyConnections::DeploymentJob do
       "0.service-name.internal-network.my-deployment.suffix",
       "0.service-name.floating.my-deployment.suffix"
     ])}
-    it { expect(subject.job_properties).to eq({"port" => 3333}) }
+    it { expect(subject.job_properties).to eq({"port" => 3333, "nested" => {"key" => "value"}}) }
+
   end
 end

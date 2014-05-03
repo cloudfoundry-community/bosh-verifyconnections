@@ -66,3 +66,12 @@ jobs:
   - name: floating
     static_ips:
     - 10.244.0.6
+  properties:
+    service:
+      port: 3333
+    extra: property
+
+properties:
+  service:
+    host: 10.244.0.6
+    port: 3333
