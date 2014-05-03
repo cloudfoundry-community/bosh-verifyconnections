@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'bosh/verifyconnections/version'
+require 'bosh/VerifyConnections/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "bosh-verifyconnections"
-  spec.version       = Bosh::Verifyconnections::VERSION
+  spec.name          = "bosh-VerifyConnections"
+  spec.version       = Bosh::VerifyConnections::VERSION
   spec.authors       = ["Dr Nic Williams"]
   spec.email         = ["drnicwilliams@gmail.com"]
   spec.summary       = %q{Performs job interconnection verifications upon the target BOSH deployment manifest file.}
@@ -22,4 +22,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec", "~> 2.14"
+  spec.add_development_dependency "rspec-fire"
 end
