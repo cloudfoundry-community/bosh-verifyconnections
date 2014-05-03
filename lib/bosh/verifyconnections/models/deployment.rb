@@ -61,7 +61,7 @@ module Bosh::VerifyConnections
       result = []
       all_properties_by_job.each do |job_name, properties|
         properties.to_dotted_hash.each do |key, value|
-          result << [key, value, job_name] if static_ip?(value)
+          result << [key, value, job_name] if invalid_static_ip?(value)
         end
       end
       result
@@ -100,14 +100,14 @@ module Bosh::VerifyConnections
       end
     end
 
-    def static_ip?(value)
+    def invalid_static_ip?(value)
       return false unless value.is_a? String
       parts = value.split(".")
       return false if parts.size != 4
       parts.each do |part|
         return false if part.to_i.to_s != part
       end
-      true
+      return !static_ips_assigned.include?(value)
     end
 
     def invalid_internal_hostname?(value)

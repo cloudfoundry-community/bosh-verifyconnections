@@ -58,7 +58,6 @@ module Bosh::Cli::Command
           t.headings = ["property", "hostname", "job name"]
           items.each do |item|
             t << item
-            t.add_separator unless item == items.last
           end
         end
         say(view)
