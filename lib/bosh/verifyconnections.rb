@@ -1,7 +1,7 @@
 require "bosh/verifyconnections/version"
 
 module Bosh
-  module Verifyconnections
+  module VerifyConnections
     # Your code goes here...
   end
 end

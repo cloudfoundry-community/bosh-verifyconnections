@@ -1,4 +1,4 @@
-# Bosh::Verifyconnections
+# Bosh::VerifyConnections
 
 BOSH CLI plugin that performs job interconnection verifications upon the target deployment
 

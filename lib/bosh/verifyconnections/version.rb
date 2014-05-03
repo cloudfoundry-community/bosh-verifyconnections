@@ -1,5 +1,5 @@
 module Bosh
-  module Verifyconnections
+  module VerifyConnections
     VERSION = "0.0.1"
   end
 end
