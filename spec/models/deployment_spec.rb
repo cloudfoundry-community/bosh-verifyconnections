@@ -19,12 +19,18 @@ describe Bosh::VerifyConnections::Deployment do
       }
     })}
 
-    it { expect(subject.all_properties).to eq({
+    it { expect(subject.job_properties("service")).to eq({
       "service" => {
         "host" => "10.244.0.6",
         "port" => 4444
       },
       "extra" => "property",
+    })}
+    it { expect(subject.job_properties("ephemeral")).to eq({
+      "service" => {
+        "host" => "10.244.0.6",
+        "port" => 3333
+      }
     })}
 
 

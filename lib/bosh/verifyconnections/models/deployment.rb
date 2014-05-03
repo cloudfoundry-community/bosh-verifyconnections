@@ -33,12 +33,12 @@ module Bosh::VerifyConnections
       @deployment["properties"]
     end
 
-    def all_properties
-      properties = Bosh::Common::DeepCopy.copy(global_properties)
-      jobs.each do |job|
-        properties.deep_merge!(job.job_properties)
-      end
-      properties
+    def job(job_name)
+      jobs.find { |job| job.job_name == job_name }
+    end
+
+    def job_properties(job_name)
+      global_properties.deep_merge(job(job_name).job_properties)
     end
 
     private
