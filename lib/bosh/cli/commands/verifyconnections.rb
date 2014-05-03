@@ -12,6 +12,8 @@ module Bosh::Cli::Command
     desc "Performs job interconnection verifications upon the target deployment"
     def verify_connections
       show_deployment
+      require "pp"
+      pp jobs_and_indexes
     end
   end
 end

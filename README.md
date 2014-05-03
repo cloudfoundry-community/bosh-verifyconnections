@@ -23,6 +23,13 @@ gem 'bosh-verifyconnections'
 bosh verify connections
 ```
 
+To see demonstration deployment manifests:
+
+```
+bosh deployment without verification spec/fixtures/job_with_static_ips_but_not_referenced.yml && bosh verify connections
+```
+
+
 ## Contributing
 
 1. Fork it ( https://github.com/cloudfoundry-community/bosh-verifyconnections/fork )
