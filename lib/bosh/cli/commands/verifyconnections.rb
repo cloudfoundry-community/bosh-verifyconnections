@@ -11,10 +11,15 @@ module Bosh::Cli::Command
     usage "verify connections"
     desc "Performs job interconnection verifications upon the target deployment"
     def verify_connections
+      require "bosh/verifyconnections"
+
       show_deployment
       require "pp"
       pp jobs_and_indexes
       pp deployment
+
+      deployment_model = Bosh::VerifyConnections::Deployment.new(deployment)
+      pp deployment_model
     end
   end
 end

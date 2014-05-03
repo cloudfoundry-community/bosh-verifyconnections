@@ -8,6 +8,17 @@ module Bosh::VerifyConnections
       parse_deployment_file(deployment_file)
     end
 
+    def deployment_name
+      @deployment["name"]
+    end
+
+    def dns_offered(suffix)
+      jobs.inject([]) do |dns, job|
+        dns.push(*job.dns_offered(deployment_name, suffix))
+        dns
+      end
+    end
+
     private
     def parse_deployment_file(deployment_file)
       @deployment_file = deployment_file
