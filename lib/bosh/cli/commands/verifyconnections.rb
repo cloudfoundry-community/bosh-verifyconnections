@@ -14,6 +14,7 @@ module Bosh::Cli::Command
       show_deployment
       require "pp"
       pp jobs_and_indexes
+      pp deployment
     end
   end
 end
