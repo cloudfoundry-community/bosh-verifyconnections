@@ -60,6 +60,9 @@ module Bosh::Cli::Command
         end
         say(view)
       end
+
+      nl
+      err("Please review warnings/errors above") if errors
     end
   end
 end
