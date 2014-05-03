@@ -10,5 +10,7 @@ describe Bosh::VerifyConnections::Deployment do
       "0.service.cf1.job-with-static-ips-but-not-referenced.suffix",
       "0.service.floating.job-with-static-ips-but-not-referenced.suffix"
     ])}
+
+    it { expect(subject.static_ips_assigned).to eq(["10.244.0.6"])}
   end
 end

@@ -65,4 +65,4 @@ jobs:
     default: [dns, gateway]
   - name: floating
     static_ips:
-    - 10.244.06
+    - 10.244.0.6

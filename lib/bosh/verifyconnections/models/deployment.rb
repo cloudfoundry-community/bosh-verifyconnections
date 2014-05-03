@@ -19,6 +19,13 @@ module Bosh::VerifyConnections
       end
     end
 
+    def static_ips_assigned
+      jobs.inject([]) do |ips, job|
+        ips.push(*job.static_ips_assigned)
+        ips
+      end
+    end
+
     private
     def parse_deployment_file(deployment_file)
       @deployment_file = deployment_file
