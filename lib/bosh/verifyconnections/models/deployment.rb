@@ -29,6 +29,38 @@ module Bosh::VerifyConnections
       end
     end
 
+    def static_ips_with_job_index
+      jobs.inject([]) do |ips, job|
+        job.static_ips_assigned.each_with_index do |ip, index|
+          job_index = "#{job.job_name}/#{index}"
+          ips << [ip, job_index]
+        end
+        ips
+      end
+    end
+
+    # TODO reject if static_ip in properties
+    # @return Array [ip, job_index]
+    def unreferenced_static_ips_with_job_index
+      static_ips_with_job_index
+    end
+
+    # @return Array [ip, job_name, property_name]
+    def property_static_ips_not_assigned_to_job
+      [
+        ["10.244.1.10", "global", "ccdb.host"],
+        ["10.244.1.10", "uaa_z1", "uaadb.host"],
+      ]
+    end
+
+    # @return Array [hostname, job_name, property_name]
+    def property_hostnames_not_mapping_to_job
+      [
+        ["0.ephemeral.cf1.job-with-static-ips-but-not-referenced.bosh", "global", "ccdb.host"],
+        ["0.ephemeral.cf1.job-with-static-ips-but-not-referenced.bosh", "uaa_z1", "uaadb.host"],
+      ]
+    end
+
     def global_properties
       @deployment["properties"]
     end

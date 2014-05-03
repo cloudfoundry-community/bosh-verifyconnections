@@ -17,25 +17,49 @@ module Bosh::Cli::Command
       director_model = Bosh::VerifyConnections::Director.new(director.get_status)
 
       require "pp"
+      errors = false
 
-      header "Job static IPs that are not being referenced by any properties:"
-      with_indent "  " do
-        say "10.244.0.6 by cloud_controller_api_z1/0".make_yellow
-        say "10.244.0.14 by cloud_controller_api_z1/1".make_yellow
+      items = deployment_model.unreferenced_static_ips_with_job_index
+      if items.size > 0
+        errors = true
+        nl
+        say "Job static IPs that are not being referenced by any properties:".make_yellow
+        view = table(items) do |t|
+          t.headings = ["static ip", "job/index"]
+          items.each do |item|
+            t << item
+          end
+        end
+        say(view)
       end
 
-      header "Internal static IPs not assigned to any job:"
-      with_indent "  " do
-        say "10.244.0.10 by global property: ccdb.host".make_yellow
-        say "10.244.0.10 by cloud_controller_api_z1 property: ccdb.host".make_yellow
+      items = deployment_model.property_static_ips_not_assigned_to_job
+      if items.size > 0
+        errors = true
+        nl
+        say "Internal static IPs not assigned to any job:".make_yellow
+        view = table(items) do |t|
+          t.headings = ["static ip", "property", "job name"]
+          items.each do |item|
+            t << item
+          end
+        end
+        say(view)
       end
 
-      header "Internal hostnames not mapping to any job:"
-      with_indent "  " do
-        say "0.ephemeral.cf1.job-with-static-ips-but-not-referenced.bosh by global property: ccdb.host".make_yellow
-        say "0.ephemeral.cf1.job-with-static-ips-but-not-referenced.bosh by cloud_controller_api_z1 property: ccdb.host".make_yellow
+      items = deployment_model.property_hostnames_not_mapping_to_job
+      if items.size > 0
+        errors = true
+        nl
+        say "Internal hostnames not mapping to any job:".make_yellow
+        view = table(items) do |t|
+          t.headings = ["hostname", "property", "job name"]
+          items.each do |item|
+            t << item
+          end
+        end
+        say(view)
       end
-
     end
   end
 end
