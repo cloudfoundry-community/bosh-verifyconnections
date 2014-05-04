@@ -29,6 +29,27 @@ bosh deployment without verification spec/fixtures/property_is_bosh_dns_but_not_
 bosh deployment without verification spec/fixtures/property_is_static_ip_but_not_assigned_to_job.yml && bosh verify connections
 ```
 
+### Example
+
+You can see that deploying Cloud Foundry on bosh-lite includes two static IPs that aren't referenced properties:
+
+```
+$ bosh verify connections
+
+Current deployment is /Users/drnic/Projects/ruby/gems/cloudfoundry/bosh-lite/manifests/cf-manifest.yml
+
+Job static IPs that are not being referenced by any properties:
++----------------------------------+--------------------------------+
+| static ip                        | job/index                      |
++----------------------------------+--------------------------------+
+| 10.244.0.34                      | ha_proxy_z1/0                  |
+| 10.244.0.26                      | runner_z1/0                    |
++----------------------------------+--------------------------------+
+```
+
+The `ha_proxy_z1/0` static IP is used for the public access via `10.244.0.34.xip.io`, but theoretically the `runner_z1/0` job has no reason for a static IP.
+
+From the [history of cf-release](https://github.com/cloudfoundry/cf-release/commit/858d1b7e1f0544fb9fd4d9a7a1608e542da6bcdd), the static IP was assigned to ease integration testing.
 
 ## Contributing
 
