@@ -41,21 +41,28 @@ module Bosh::VerifyConnections
       end
     end
 
-    # TODO reject if static_ip in properties
     # @return Array [ip, job_index]
     def unreferenced_static_ips_with_job_index
-      static_ips_with_job_index
+      static_ips_with_job_index.reject do |ip, _|
+        all_property_values.include?(ip)
+      end
     end
 
     def all_properties_by_job
-      all = { "global" => global_properties }
-      jobs.each do |job|
-        all[job.job_name] = job.job_properties
+      @all_properties_by_job ||= begin
+        all = { "global" => global_properties }
+        jobs.each do |job|
+          all[job.job_name] = job.job_properties
+        end
+        all
       end
-      all
     end
 
-    # TODO reject if static IP is assigned to a job/index
+    def all_property_values
+      @all_property_values ||=
+        all_properties_by_job.values.map(&:to_dotted_hash).map(&:values).flatten
+    end
+
     # @return Array [ip, job_name, property_name]
     def property_static_ips_not_assigned_to_job
       result = []
@@ -67,7 +74,6 @@ module Bosh::VerifyConnections
       result
     end
 
-    # TODO reject if hostname maps to an index/job/network
     # @return Array [hostname, job_name, property_name]
     def property_hostnames_not_mapping_to_job
       result = []

@@ -56,9 +56,6 @@ jobs:
     - name: cloud_controller_ng
   networks:
   - name: cf1
-  properties:
-    service:
-      host: 10.244.0.6
 - name: service
   instances: 1
   templates:

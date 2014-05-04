@@ -28,9 +28,7 @@ module Bosh::Cli::Command
         say "Job static IPs that are not being referenced by any properties:".make_yellow
         view = table(items) do |t|
           t.headings = ["static ip", "job/index"]
-          items.each do |item|
-            t << item
-          end
+          items.each { |item| t << item }
         end
         say(view)
       end
@@ -42,9 +40,7 @@ module Bosh::Cli::Command
         say "Internal static IPs not assigned to any job:".make_yellow
         view = table(items) do |t|
           t.headings = ["property", "static ip", "job name"]
-          items.each do |item|
-            t << item
-          end
+          items.each { |item| t << item }
         end
         say(view)
       end
@@ -56,9 +52,7 @@ module Bosh::Cli::Command
         say "Internal hostnames not mapping to any job:".make_yellow
         view = table(items) do |t|
           t.headings = ["property", "hostname", "job name"]
-          items.each do |item|
-            t << item
-          end
+          items.each { |item| t << item }
         end
         say(view)
       end
