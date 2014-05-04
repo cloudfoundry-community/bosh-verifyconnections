@@ -89,10 +89,6 @@ module Bosh::VerifyConnections
       jobs.find { |job| job.job_name == job_name }
     end
 
-    def job_and_global_properties(job_name)
-      global_properties.deep_merge(job(job_name).job_properties)
-    end
-
     def global_properties
       @deployment["properties"]
     end
