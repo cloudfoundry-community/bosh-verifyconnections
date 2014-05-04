@@ -20,10 +20,11 @@ module Bosh::Cli::Command
       deployment_model = Bosh::VerifyConnections::Deployment.new(deployment, director_model.domain_name)
 
       errors = false
+      warnings = false
 
       items = deployment_model.unreferenced_static_ips_with_job_index
       if items.size > 0
-        errors = true
+        warnings = true
         nl
         say "Job static IPs that are not being referenced by any properties:".make_yellow
         view = table(items) do |t|
@@ -37,7 +38,7 @@ module Bosh::Cli::Command
       if items.size > 0
         errors = true
         nl
-        say "Internal static IPs not assigned to any job:".make_yellow
+        say "Properties referencing static IPs that do not belong to any job:".make_red
         view = table(items) do |t|
           t.headings = ["property", "static ip", "job name"]
           items.each { |item| t << item }
@@ -49,7 +50,7 @@ module Bosh::Cli::Command
       if items.size > 0
         errors = true
         nl
-        say "Internal hostnames not mapping to any job:".make_yellow
+        say "Internal hostnames not mapping to any job:".make_red
         view = table(items) do |t|
           t.headings = ["property", "hostname", "job name"]
           items.each { |item| t << item }
@@ -58,7 +59,8 @@ module Bosh::Cli::Command
       end
 
       nl
-      err("Please review warnings/errors above") if errors
+      err("Please review errors above") if errors
+      warning("Please review warnings above") if warnings
     end
   end
 end
