@@ -5,6 +5,16 @@ class Hash
       key = recursive_key + k.to_s
       if v.is_a? Hash
         ret.merge!(v.to_dotted_hash(key + "."))
+      elsif v.is_a?(Array)
+        if v.first.is_a?(Hash)
+          v.each_with_index do |item, index|
+            ret.merge!(item.to_dotted_hash(key + "[#{index}]."))
+          end
+        else
+          v.each_with_index do |item, index|
+            ret[key + "[#{index}]"] = item
+          end
+        end
       else
         ret[key] = v
       end
