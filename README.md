@@ -4,7 +4,7 @@ BOSH CLI plugin that performs job interconnection verifications upon the target 
 
   1. Show jobs with static IPs that aren't referenced elsewhere in the deployment properties
   2. Show IPs in the deployment properties that aren't specified as static IPs by jobs
-  3. What .*bosh hostnames are specified but don't map to a job
+  3. What internal DNS hostnames are specified but don't map to a job
 
 
 ## Installation
