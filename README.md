@@ -25,6 +25,8 @@ To see demonstration deployment manifests:
 
 ```
 bosh deployment without verification spec/fixtures/job_with_static_ips_but_not_referenced.yml && bosh verify connections
+bosh deployment without verification spec/fixtures/property_is_bosh_dns_but_not_for_bosh_job.yml && bosh verify connections
+bosh deployment without verification spec/fixtures/property_is_static_ip_but_not_assigned_to_job.yml && bosh verify connections
 ```
 
 
