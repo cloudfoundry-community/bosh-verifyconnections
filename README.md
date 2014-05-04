@@ -29,6 +29,8 @@ bosh deployment without verification spec/fixtures/job_with_static_ips_but_not_r
 
 ![v1](https://www.evernote.com/shard/s3/sh/41947f58-90fc-4f62-b0d8-ad3fae84c0a9/5bede6c17dacef652a8758037c223642/deep/0/drnic@drnic----gems-bosh-verifyconnections---zsh---204-48.png)
 
+From this example, perhaps `service.host` should be changed to `10.244.0.6`.
+
 Others to try:
 
 ```
