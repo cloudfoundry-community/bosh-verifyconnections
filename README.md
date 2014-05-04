@@ -25,6 +25,13 @@ To see demonstration deployment manifests:
 
 ```
 bosh deployment without verification spec/fixtures/job_with_static_ips_but_not_referenced.yml && bosh verify connections
+```
+
+![v1](https://www.evernote.com/shard/s3/sh/41947f58-90fc-4f62-b0d8-ad3fae84c0a9/5bede6c17dacef652a8758037c223642/deep/0/drnic@drnic----gems-bosh-verifyconnections---zsh---204-48.png)
+
+Others to try:
+
+```
 bosh deployment without verification spec/fixtures/property_is_bosh_dns_but_not_for_bosh_job.yml && bosh verify connections
 bosh deployment without verification spec/fixtures/property_is_static_ip_but_not_assigned_to_job.yml && bosh verify connections
 ```
