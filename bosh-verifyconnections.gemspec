@@ -1,10 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'bosh/VerifyConnections/version'
+require 'bosh/verifyconnections/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "bosh-VerifyConnections"
+  spec.name          = "bosh-verifyconnections"
   spec.version       = Bosh::VerifyConnections::VERSION
   spec.authors       = ["Dr Nic Williams"]
   spec.email         = ["drnicwilliams@gmail.com"]
