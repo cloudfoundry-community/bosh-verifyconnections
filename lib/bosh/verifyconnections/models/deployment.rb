@@ -1,6 +1,6 @@
 require "common/deep_copy"
-require "core-ext/hash_deep_merge"
-require "core-ext/hash_to_dotted_notation"
+require "core-ext/hash/deep_merge"
+require "core-ext/hash/to_dotted_hash"
 
 module Bosh::VerifyConnections
   class Deployment

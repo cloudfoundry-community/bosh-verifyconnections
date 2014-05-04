@@ -1,4 +1,4 @@
-require "core-ext/hash_to_dotted_notation"
+require "core-ext/hash/to_dotted_hash"
 
 module Bosh::Cli::Command
   # Performs job interconnection verifications upon the target deployment
