@@ -19,5 +19,10 @@ describe Bosh::VerifyConnections::Deployment do
       }
     })}
 
+    it { expect(subject.unreferenced_static_ips_with_job_index).to eq([["10.244.0.6", "service/0"]]) }
+
+    it { expect(subject.property_static_ips_not_assigned_to_job).to eq([["service.host", "10.244.0.10", "global"]]) }
+
+    it { expect(subject.property_hostnames_not_mapping_to_job).to eq([]) }
   end
 end
